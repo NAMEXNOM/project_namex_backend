@@ -8,16 +8,18 @@ async function bootstrap() {
   // Swagger  se copi de nesjs.doc  openapi  02-28-26  AHR SWAGGER
 
  const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('backend api')
+    .setDescription('Backend api portal')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('node')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
 
-  // FIN DE Swagger
+  // FIN DE Swagger.  02-28-26
+  // FIN DE Swagger 02-28-26
+  
 
 
   await app.listen(process.env.PORT ?? 3000);
