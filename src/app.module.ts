@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigurationModule } from './modules/admin/configuration/configuration.module';
+import { Configuration } from './modules/admin/configuration/entities/configuration.entity';
 
 @Module({
   imports: [
@@ -14,10 +16,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'postgres',
       password: '123456',
       database: 'portaldb',
-      entities: [],
+      entities: [
+        Configuration
+      ],
       synchronize: true,
     }),
+
+  ConfigurationModule,
 // fin  add db  02-28-26 de nesjs techniques-database
+
+// db aws
+    
+
+// db aws
 
 
   ],
