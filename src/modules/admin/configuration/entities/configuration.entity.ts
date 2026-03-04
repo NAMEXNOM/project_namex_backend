@@ -27,7 +27,7 @@ export class Configuration {
     RH4_name: string;
     
     @Column({unique: true})
-    RH14_email:string;
+    RH4_email:string;
     
     @Column({unique: true})
     RH5_name: string;

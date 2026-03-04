@@ -5,11 +5,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigurationModule } from './modules/admin/configuration/configuration.module';
 import { Configuration } from './modules/admin/configuration/entities/configuration.entity';
 
+require('dotenv').config();
+
 @Module({
   imports: [
 
   // add db  02-28-26 de nesjs techniques-database
-  TypeOrmModule.forRoot({
+  /*TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
       port: 5433,
@@ -22,12 +24,28 @@ import { Configuration } from './modules/admin/configuration/entities/configurat
       synchronize: true,
     }),
 
-  ConfigurationModule,
+  ConfigurationModule, */
 // fin  add db  02-28-26 de nesjs techniques-database
 
 // db aws
-    
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: 5432,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      entities: [
+        Configuration
+      ],
+      synchronize: true,
+      ssl: {
+        rejectUnauthorized: false // Requerido para conectar a AWS RDS con certificados autofirmados
+  }
+    }),
 
+
+    ConfigurationModule,
 // db aws
 
 

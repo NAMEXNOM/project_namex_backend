@@ -7,7 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
 // class validator de nestjs.doc  2-Marzo-2026 RAP
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+     whitelist: true, //solo pasan los datos configurdos en DTO
+     forbidNonWhitelisted: true // avisa cuales datos no deben de ir
+  }));
 
 // Fin de class validator nestjs.doc 2-Marzo-2026 RAP
   
