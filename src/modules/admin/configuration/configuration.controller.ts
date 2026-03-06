@@ -19,7 +19,7 @@ export class ConfigurationController {
     return this.configurationService.findAll();
   }
 
-  @Get(':id')
+ /* @Get(':id')
   findOne(@Param('id') id: string) {
     return this.configurationService.findOne(+id);
   }
@@ -33,5 +33,5 @@ export class ConfigurationController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.configurationService.remove(+id);
-  }
+  }*/
 }
