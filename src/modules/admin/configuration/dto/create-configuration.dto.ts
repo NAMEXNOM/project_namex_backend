@@ -116,6 +116,34 @@ export class CreateConfigurationDto {
     @IsEmail()
     RH6_email: string;
 
+  // Configuracion de datos de la compañia. 03/14/2026  RAP
+    
+    @ApiProperty()
+    @IsOptional()
+    @IsString()
+    nameCo: string;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsString()
+    rfcCo: string;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsString()
+    urlCo: string;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsString()
+    portNumber: string;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsString()
+    token: string;
+
+
 
 }
 

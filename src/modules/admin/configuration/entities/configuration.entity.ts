@@ -41,6 +41,20 @@ export class Configuration {
     @Column({unique: true, nullable: true})
     RH6_email:string;
 
+    @Column({default: "",nullable: true})
+    nameCo: string;
+
+    @Column({default: "",nullable: true})
+    rfcCo:string;
+
+    @Column({default: "",nullable: true})
+    urlCo:string;
+
+    @Column({default: "",nullable: true})
+    portNumber: string;
+
+    @Column({default: "",nullable: true})
+    token: string;
 
 
 
