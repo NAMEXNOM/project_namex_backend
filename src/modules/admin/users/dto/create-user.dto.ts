@@ -64,4 +64,8 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @IsNotEmpty()
     password: string;
 
+    @IsString()
+    @IsNotEmpty()
+    empPriv: string;
+
 }
