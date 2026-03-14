@@ -1,4 +1,5 @@
 import { Column, Entity, ForeignKey, PrimaryGeneratedColumn } from "typeorm";
+import { Timestamp } from "typeorm/browser";
 
 @Entity()
 export class User {
@@ -46,5 +47,11 @@ export class User {
 
     @Column({default: "usuario"})
     empPriv: string;
+
+    @Column({default: 0})
+    vacationBalance: number;
+
+    @Column({nullable: true})
+    balanceDateTime: Date;
 
 }

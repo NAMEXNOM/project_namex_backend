@@ -1,5 +1,7 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { dateTimestampProvider } from "rxjs/internal/scheduler/dateTimestampProvider";
+import { Timestamp } from "typeorm";
 
 export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemos poner en esta clase
     @IsString()
@@ -67,5 +69,14 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @IsString()
     @IsNotEmpty()
     empPriv: string;
+
+    @IsNumber()
+    vacationBalance: number;
+
+    @IsOptional()
+    @Type(() => Date)
+    @IsDate()
+    balanceDateTime?: Date;
+
 
 }
