@@ -1,0 +1,47 @@
+import { Column, Entity, ForeignKey, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity()
+export class User {
+    @PrimaryGeneratedColumn('uuid')
+    userId: string;
+
+    @Column({unique:true, update: false})
+    userRFC: string;
+
+    @Column({unique:true, update: false})
+    empNumber: string;
+    
+    @Column()
+    name: string;
+    
+    @Column()
+    firstLastName: string;
+    
+    @Column()
+    secondLastName: string;
+    
+    @Column()
+    email: string;
+    
+    @Column()
+    hireDate: Date;
+    
+    @Column({nullable: true })
+    termDate?: Date;
+    
+    @Column()
+    status: string;
+    
+    @Column()
+    shiftType: string;
+    
+    @Column()
+    jobRole: string;
+    
+    @Column({default: true})
+    firstTimeLoad: boolean;
+
+    @Column()
+    password: string;
+
+}

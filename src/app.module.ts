@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigurationModule } from './modules/admin/configuration/configuration.module';
 import { Configuration } from './modules/admin/configuration/entities/configuration.entity';
+import { UsersModule } from './modules/admin/users/users.module';
+import { User } from './modules/admin/users/entities/user.entity';
 
 require('dotenv').config();
 
@@ -35,8 +37,9 @@ require('dotenv').config();
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [
-        Configuration
+      entities: [  //necesario para generar las tablas automaticamente RAP
+        Configuration,
+        User
       ],
       synchronize: true,
       ssl: {
@@ -46,6 +49,9 @@ require('dotenv').config();
 
 
     ConfigurationModule,
+
+
+    UsersModule
 // db aws
 
 

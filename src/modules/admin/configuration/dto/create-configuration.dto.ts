@@ -19,7 +19,6 @@ export class CreateConfigurationDto {
     @IsEmail()
     @ValidateIf(o => o.RH1_name !== undefined && o.RH2_name !== null)
     @IsNotEmpty()
-    @IsNotEmpty()
     RH1_email: string;
 
 // RH2 Validacion de entradas de valores, deben estar presentes ambos valores
