@@ -6,6 +6,7 @@ import { ConfigurationModule } from './modules/admin/configuration/configuration
 import { Configuration } from './modules/admin/configuration/entities/configuration.entity';
 import { UsersModule } from './modules/admin/users/users.module';
 import { User } from './modules/admin/users/entities/user.entity';
+import { AuthModule } from './modules/auth/auth.module';
 
 require('dotenv').config();
 
@@ -51,7 +52,10 @@ require('dotenv').config();
     ConfigurationModule,
 
 
-    UsersModule
+    UsersModule,
+
+
+    AuthModule
 // db aws
 
 
