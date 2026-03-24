@@ -42,7 +42,7 @@ require('dotenv').config();
         Configuration,
         User
       ],
-      synchronize: true,
+      synchronize: false,
       ssl: {
         rejectUnauthorized: false // Requerido para conectar a AWS RDS con certificados autofirmados
   }
