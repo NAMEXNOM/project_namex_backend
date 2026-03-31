@@ -7,6 +7,10 @@ import { Configuration } from './modules/admin/configuration/entities/configurat
 import { UsersModule } from './modules/admin/users/users.module';
 import { User } from './modules/admin/users/entities/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { PermissionsModule } from './modules/admin/permissions/permissions.module';
+import { RolesModule } from './modules/admin/roles/roles.module';
+import { Permission } from './modules/admin/permissions/entities/permission.entity';
+import { Role } from './modules/admin/roles/entities/role.entity';
 
 require('dotenv').config();
 
@@ -40,7 +44,9 @@ require('dotenv').config();
       database: process.env.DB_NAME,
       entities: [  //necesario para generar las tablas automaticamente RAP
         Configuration,
-        User
+        User,
+        Permission,
+        Role,
       ],
       synchronize: false,
       ssl: {
@@ -55,7 +61,13 @@ require('dotenv').config();
     UsersModule,
 
 
-    AuthModule
+    AuthModule,
+
+
+    PermissionsModule,
+
+
+    RolesModule
 // db aws
 
 

@@ -14,16 +14,16 @@ async function bootstrap() {
 
 // Fin de class validator nestjs.doc 2-Marzo-2026 RAP
   
-  // Swagger  se copi de nesjs.doc  openapi  02-28-26  AHR SWAGGER
-
+// Swagger  se copi de nesjs.doc  openapi  02-28-26  AHR SWAGGER
  const config = new DocumentBuilder()
+    .addBearerAuth()    // se agrega para dar seguridad con token 03/31/2026 RAP
     .setTitle('backend api')
     .setDescription('Backend api portal')
     .setVersion('1.0')
     .addTag('node')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+  SwaggerModule.setup('docs', app, documentFactory);
 
 
   // FIN DE Swagger.  02-28-26

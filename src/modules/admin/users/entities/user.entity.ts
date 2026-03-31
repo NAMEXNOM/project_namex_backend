@@ -1,7 +1,8 @@
-import { Column, Entity, ForeignKey, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamp } from "typeorm/browser";
+import { Role } from "../../roles/entities/role.entity";
 
-@Entity()
+@Entity('user')  //********************************** */
 export class User {
     @PrimaryGeneratedColumn('uuid')
     userId: string;
@@ -53,5 +54,17 @@ export class User {
 
     @Column({nullable: true})
     balanceDateTime: Date;
+
+    @ManyToMany(() => Role, {eager: true})
+    @JoinTable({
+        name: 'users_roles',
+        joinColumn: {
+            name: 'user_id'
+        },
+        inverseJoinColumn: {
+            name: 'role_id'
+        } 
+    })
+    roles: Role[]
 
 }
