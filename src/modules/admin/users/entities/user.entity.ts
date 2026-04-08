@@ -1,6 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Timestamp } from "typeorm/browser";
 import { Role } from "../../roles/entities/role.entity";
+import { Vacation } from './../../vacations/entities/vacation.entity';
 
 @Entity('user')  //********************************** */
 export class User {
@@ -67,4 +68,7 @@ export class User {
     })
     roles: Role[]
 
+    // Un usuario tiene muchas vacaciones
+    @OneToMany(() => Vacation, (vacation) => vacation.userId)
+    vacations: Vacation[];
 }

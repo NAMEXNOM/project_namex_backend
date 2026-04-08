@@ -31,11 +31,11 @@ async login(credenciales: LoginAuthDto){  //el login va a recibir datos
 
     // IMPORTANTE JWT
     // generar JWT
-    const payload = { userRFC: userRfc, empNumber: usuario.empNumber}
+    const payload = { userRFC: userRfc, empNumber: usuario.empNumber, userId: usuario.userId}
 
     const token = this.jwtService.sign(payload);
 
-    return {access_token: token, user: usuario.email}
+    return {access_token: token, user: usuario.email, userId: usuario.userId}
 }
 
 

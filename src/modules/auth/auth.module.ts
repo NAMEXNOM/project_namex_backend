@@ -13,7 +13,7 @@ import { jwtConstants } from './constants';
       global: true,
       secret: jwtConstants.secret,    // texto que se va a usaro como codigo secreto
      // secret: 'MI_CODIGO_SECRETO',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '300s' },
     }),
 
 

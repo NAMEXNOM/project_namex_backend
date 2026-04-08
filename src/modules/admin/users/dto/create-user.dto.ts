@@ -10,44 +10,44 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @MinLength(13)
     @MaxLength(13)
     @IsNotEmpty()
-    userRFC: string;
+    userRFC!: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    empNumber: string;
-
-    @ApiProperty()
-    @IsString()
-    @MinLength(1)
-    @MaxLength(30)
-    @IsNotEmpty()
-    name: string;
+    empNumber!: string;
 
     @ApiProperty()
     @IsString()
     @MinLength(1)
     @MaxLength(30)
     @IsNotEmpty()
-    firstLastName: string;
+    name!: string;
 
     @ApiProperty()
     @IsString()
     @MinLength(1)
     @MaxLength(30)
     @IsNotEmpty()
-    secondLastName: string;
+    firstLastName!: string;
+
+    @ApiProperty()
+    @IsString()
+    @MinLength(1)
+    @MaxLength(30)
+    @IsNotEmpty()
+    secondLastName!: string;
 
     @ApiProperty()
     @IsString()
     @IsEmail()
     @IsNotEmpty()
-    email: string;
+    email!: string;
 
     @ApiProperty()
     @Type(() => Date) // 1. Convierte el string del JSON a objeto Date
     @IsDate()         // 2. Valida que sea una fecha válida
-    hireDate: Date;
+    hireDate!: Date;
 
     @IsOptional()
     @Type(() => Date)
@@ -57,36 +57,36 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    status: string;
+    status!: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    shiftType: string;
+    shiftType!: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    jobRole: string;
+    jobRole!: string;
 
     @ApiProperty()
     @IsBoolean()
     @IsNotEmpty()
-    firstTimeLoad: boolean;
+    firstTimeLoad!: boolean;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    password: string;
+    password!: string;
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    empPriv: string;
+    empPriv!: string;
 
     @ApiProperty()
     @IsNumber()
-    vacationBalance: number;
+    vacationBalance!: number;
 
     @ApiProperty()
     @IsOptional()

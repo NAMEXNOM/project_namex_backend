@@ -11,6 +11,8 @@ import { PermissionsModule } from './modules/admin/permissions/permissions.modul
 import { RolesModule } from './modules/admin/roles/roles.module';
 import { Permission } from './modules/admin/permissions/entities/permission.entity';
 import { Role } from './modules/admin/roles/entities/role.entity';
+import { VacationsModule } from './modules/admin/vacations/vacations.module';
+import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
 
 require('dotenv').config();
 
@@ -42,11 +44,12 @@ require('dotenv').config();
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [  //necesario para generar las tablas automaticamente RAP
+      entities: [  //necesario para generar las tablas automaticamente RAP ****************************
         Configuration,
         User,
         Permission,
         Role,
+        Vacation,
       ],
       synchronize: false,
       ssl: {
@@ -67,7 +70,10 @@ require('dotenv').config();
     PermissionsModule,
 
 
-    RolesModule
+    RolesModule,
+
+
+    VacationsModule
 // db aws
 
 
