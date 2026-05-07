@@ -8,7 +8,7 @@ import { AuthGuard } from './../../auth/auth.guard';
 
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard)   // Este decorador hace que se habiliten los guardias de las autorizaciones.
+// @UseGuards(AuthGuard)   // Este decorador hace que se habiliten los guardias de las autorizaciones.
 @Controller('users')
 export class UsersController {
   //inyeccion de dependencia

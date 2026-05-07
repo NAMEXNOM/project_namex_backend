@@ -6,6 +6,11 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+ // --- AGREGA ESTA LÍNEA AQUÍ ---
+  app.enableCors(); 
+  // ------------------------------
+
+
 // class validator de nestjs.doc  2-Marzo-2026 RAP
   app.useGlobalPipes(new ValidationPipe({
      whitelist: true, //solo pasan los datos configurdos en DTO
@@ -30,10 +35,10 @@ async function bootstrap() {
   // FIN DE Swagger 02-28-26
   
    // class validator 03-02-26
-  app.useGlobalPipes(new ValidationPipe());
+ // app.useGlobalPipes(new ValidationPipe());
 
    // fin class validaor 03-02-26
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 5000);
 }
 bootstrap();
