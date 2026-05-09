@@ -13,6 +13,7 @@ import { Permission } from './modules/admin/permissions/entities/permission.enti
 import { Role } from './modules/admin/roles/entities/role.entity';
 import { VacationsModule } from './modules/admin/vacations/vacations.module';
 import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
+//import { AuthModule } from './auth/auth.module';
 
 require('dotenv').config();
 
