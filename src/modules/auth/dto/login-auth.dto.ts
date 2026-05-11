@@ -5,7 +5,7 @@ export class LoginAuthDto{  //aqui se pueden validar los tipos de datos
 
     @ApiProperty({description: "Ingrese un RFC válido"})
     @IsNotEmpty()
-    userRfc: string;
+    userRFC: string;
 
     @ApiProperty()
     @MinLength(6)

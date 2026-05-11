@@ -48,6 +48,14 @@ export class VacationsService {
     return `This action returns a #${id} vacation`;
   }
 
+  async findAllByUser(userId: string) {
+  return await this.vacationRepository.find({
+    where: { userId: userId } // Filtro indispensable
+  });
+}
+
+
+  
   // Buscar todas las vacaciones de un usuario específico
   async findAllByUserId(userId: string): Promise<Vacation[]> {
     return await this.vacationRepository.find({

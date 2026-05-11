@@ -1,9 +1,20 @@
+// src/auth/auth.module.ts
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './jwt.strategy'; // Importa tu estrategia
+import { UsersModule } from '../modules/admin/users/users.module'; // 1. Importa el módulo de usuarios
 
 @Module({
-  controllers: [AuthController],
-  providers: [AuthService]
+  imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }), // Configura el default
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
+  providers: [AuthService, JwtStrategy], // <-- ¡ESTO ES VITAL!
+  exports: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
 
+
 @Injectable()
 export class UsersService {
 
@@ -74,13 +75,19 @@ export class UsersService {
   }
 
 //Debemos crear para la authenticacion una función para buscar por RFC
-  async findOneByRfc(userRFC: string){
+/*  async findOneByRfc(userRFC: string){
     const user = await this.userRepository.findOneBy({userRFC})
     if (!user) throw new NotFoundException(`El susuario con RFC: ${userRFC} no existe`)
       return user;
-  }
+  }*/
   
-
+// backend/src/users/users.service.ts
+  async findOneByRfc(userRFC: string) {
+  return await this.userRepository.findOne({
+    where: { userRFC },
+    relations: ['roles'], // Esto hace el "Join" automático con la tabla roles
+  });
+}
 
   async update(userRFC: string, updateUserDto: UpdateUserDto) {
   //  const user = await this.userRepository.findOneBy({userRFC}); para no repetir, se puede llamar a la función findOne() antes configurada

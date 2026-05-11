@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { VacationsService } from './vacations.service';
 import { CreateVacationDto } from './dto/create-vacation.dto';
 import { UpdateVacationDto } from './dto/update-vacation.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger/dist';
 import { AuthGuard } from './../../auth/auth.guard';
+import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
+
+@UseGuards(JwtAuthGuard)
 
 
 @ApiBearerAuth()
@@ -17,16 +20,21 @@ export class VacationsController {
     return this.vacationsService.create(createVacationDto);
   }
 
-  @Get()
+/*  @Get()
   findAll() {
     return this.vacationsService.findAll();
-  }
-
- /* @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vacationsService.findOne(+id);
   }*/
 
+  @Get('mis-vacaciones') // O simplemente @Get() si es el único GET
+  @UseGuards(JwtAuthGuard) 
+  findAllByUser(@Req() req) {
+    console.log("Usuario decodificado del JWT:", req.user);
+    // req.user.userId debe existir en tu Payload del JWT
+    return this.vacationsService.findAllByUserId(req.user.userId); 
+}
+
+
+/*
   @Get(':userId')
   @ApiOperation({ 
     summary: 'Busca un userId específico',
@@ -34,7 +42,9 @@ export class VacationsController {
   })
   findAllByUser(@Param('userId') userId: string) {
   return this.vacationsService.findAllByUserId(userId); // 
-}
+  }
+*/
+
 
  /* @Patch(':id')
   update(@Param('id') id: string, @Body() updateVacationDto: UpdateVacationDto) {

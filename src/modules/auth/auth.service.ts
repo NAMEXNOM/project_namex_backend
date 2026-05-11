@@ -14,10 +14,10 @@ constructor(private userService: UsersService, private jwtService: JwtService){
 
 async login(credenciales: LoginAuthDto){  //el login va a recibir datos
 
-    const  { userRfc, password } = credenciales;
+    const  { userRFC, password } = credenciales;
 
     // ahora buscamos por userRFC
-    const usuario = await this.userService.findOneByRfc(userRfc);
+    const usuario = await this.userService.findOneByRfc(userRFC);
     if (!usuario){
         return new HttpException('Datos incorrectos', 404);
     }
@@ -31,11 +31,17 @@ async login(credenciales: LoginAuthDto){  //el login va a recibir datos
 
     // IMPORTANTE JWT
     // generar JWT
-    const payload = { userRFC: userRfc, empNumber: usuario.empNumber, userId: usuario.userId}
+    const payload = { userRFC: userRFC, empNumber: usuario.empNumber, userId: usuario.userId}
 
     const token = this.jwtService.sign(payload);
 
-    return {access_token: token, user: usuario.email, userId: usuario.userId}
+    return {
+        access_token: token, 
+        userEmail: usuario.email,
+        userId: usuario.userId,
+        userName: usuario.name + ' '+ usuario.firstLastName +' '+ usuario.secondLastName,
+        userBalance: usuario.vacationBalance
+    }
 }
 
 
