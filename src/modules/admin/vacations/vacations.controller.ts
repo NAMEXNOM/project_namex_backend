@@ -4,9 +4,9 @@ import { CreateVacationDto } from './dto/create-vacation.dto';
 import { UpdateVacationDto } from './dto/update-vacation.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger/dist';
 import { AuthGuard } from './../../auth/auth.guard';
-import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
+//import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 
 
 @ApiBearerAuth()
@@ -20,11 +20,11 @@ export class VacationsController {
     return this.vacationsService.create(createVacationDto);
   }
 
-/*  @Get()
+  @Get()
   findAll() {
     return this.vacationsService.findAll();
-  }*/
-
+  }
+/*
   @Get('mis-vacaciones') // O simplemente @Get() si es el único GET
   @UseGuards(JwtAuthGuard) 
   findAllByUser(@Req() req) {
@@ -32,18 +32,20 @@ export class VacationsController {
     // req.user.userId debe existir en tu Payload del JWT
     return this.vacationsService.findAllByUserId(req.user.userId); 
 }
+*/
 
 
-/*
   @Get(':userId')
   @ApiOperation({ 
     summary: 'Busca un userId específico',
     description: 'Devuelve todos los valores coincidentes con el userId'
   })
-  findAllByUser(@Param('userId') userId: string) {
+  findAllByUserId(@Param('userId') userId: string) {
   return this.vacationsService.findAllByUserId(userId); // 
   }
-*/
+
+
+
 
 
  /* @Patch(':id')
