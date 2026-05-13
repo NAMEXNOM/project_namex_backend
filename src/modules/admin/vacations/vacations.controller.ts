@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query } from '@nestjs/common';
 import { VacationsService } from './vacations.service';
 import { CreateVacationDto } from './dto/create-vacation.dto';
 import { UpdateVacationDto } from './dto/update-vacation.dto';
@@ -20,6 +20,16 @@ export class VacationsController {
     return this.vacationsService.create(createVacationDto);
   }
 
+
+ // URL: GET http://localhost:5000/vacations/user?userId=VALOR
+  @Get('user')
+  async getVacationsByUserId(@Query('userId') userId: string) {
+    return await this.vacationsService.findAllByUserId(userId);
+  }
+
+
+
+// Mantiene tu método global por si necesitas listar todo como admin
   @Get()
   findAll() {
     return this.vacationsService.findAll();
