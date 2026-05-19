@@ -6,7 +6,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(@Body() loginDto: any) {
-    return this.authService.login(loginDto);
-  }
+  async login(@Body() body: any) {
+  // Deja que el servicio responda directamente. 
+  // Si el servicio lanza un error, NestJS lo enviará con su código HTTP correcto de forma automática.
+  return await this.authService.login(body);
+}
 }
