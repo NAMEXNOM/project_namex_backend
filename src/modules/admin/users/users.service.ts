@@ -81,14 +81,41 @@ export class UsersService {
   });
  }
 
-//Debemos crear para la authenticacion una función para buscar por RFC
-/*  async findOneByRfc(userRFC: string){
-    const user = await this.userRepository.findOneBy({userRFC})
-    if (!user) throw new NotFoundException(`El susuario con RFC: ${userRFC} no existe`)
-      return user;
-  }*/
-  
-// backend/src/users/users.service.ts
+
+
+// =========================================================================
+// 20/05/2026 - rap / Métodos para el Flujo de Contraseña Temporal
+// =========================================================================
+
+async findByRfcAndEmail(userRFC: string, email: string) {
+  return await this.userRepository.findOne({
+    where: { userRFC, email } // TypeORM buscará que coincidan ambos campos
+  });
+}
+
+// 🚨 ESTE ES EL MÉTODO QUE TE MARCA ERROR. ¡AQUÍ LO DECLARAMOS!
+async setTemporaryPassword(userId: string, tempPasswordPlain: string) {
+  // Ciframos la contraseña temporal antes de guardarla en la DB por seguridad
+  const hashPassword = await bcrypt.hash(tempPasswordPlain, 12);
+
+  return await this.userRepository.update(userId, {
+    password: hashPassword,
+    firstTimeLoad: true,       // Obliga al usuario a cambiarla al entrar
+    status: 'TEMPORAL'         // Estado informativo de contraseña provisional
+  });
+}
+
+// Método complementario para cuando el usuario asigne su contraseña definitiva
+async updateToFinalPassword(userId: string, passwordNueva: string) {
+  const hashPassword = await bcrypt.hash(passwordNueva, 12);
+
+  return await this.userRepository.update(userId, {
+    password: hashPassword,
+    firstTimeLoad: false,      // Ya no es su primera vez
+    status: 'ACTIVO'           // El usuario queda completamente activo
+  });
+}
+// =========================================================================
 
 
   async update(userRFC: string, updateUserDto: UpdateUserDto) {
