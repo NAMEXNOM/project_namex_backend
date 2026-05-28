@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config'; // <-- 1. Importa esto
 import { ConfigurationModule } from './modules/admin/configuration/configuration.module';
 import { Configuration } from './modules/admin/configuration/entities/configuration.entity';
 import { UsersModule } from './modules/admin/users/users.module';
@@ -13,31 +14,17 @@ import { Permission } from './modules/admin/permissions/entities/permission.enti
 import { Role } from './modules/admin/roles/entities/role.entity';
 import { VacationsModule } from './modules/admin/vacations/vacations.module';
 import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
-//import { AuthModule } from './auth/auth.module';
 
-require('dotenv').config();
+// Elimiamos la linea vieja de require('dotenv')
 
 @Module({
   imports: [
-
-  // add db  02-28-26 de nesjs techniques-database
-  /*TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: '123456',
-      database: 'portaldb',
-      entities: [
-        Configuration
-      ],
-      synchronize: true,
+    // <-- 2. Colócalo SIEMPRE como el primer elemento de los imports
+    ConfigModule.forRoot({
+      isGlobal: true, // Hace que el .env esté disponible en AuthModule y la DB sin importarlo de nuevo
     }),
 
-  ConfigurationModule, */
-// fin  add db  02-28-26 de nesjs techniques-database
-
-// db aws
+    // Configuración de la DB AWS (ahora leerá los process.env de forma segura)
     TypeOrmModule.forRoot({
       type: "postgres",
       host: process.env.DB_HOST,
@@ -45,7 +32,7 @@ require('dotenv').config();
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [  //necesario para generar las tablas automaticamente RAP ****************************
+      entities: [
         Configuration,
         User,
         Permission,
@@ -54,30 +41,16 @@ require('dotenv').config();
       ],
       synchronize: false,
       ssl: {
-        rejectUnauthorized: false // Requerido para conectar a AWS RDS con certificados autofirmados
-  }
+        rejectUnauthorized: false
+      }
     }),
 
-
     ConfigurationModule,
-
-
     UsersModule,
-
-
-    AuthModule,
-
-
+    AuthModule, // <-- Ahora este módulo recibirá correctamente las variables de IONOS
     PermissionsModule,
-
-
     RolesModule,
-
-
     VacationsModule
-// db aws
-
-
   ],
   controllers: [AppController],
   providers: [AppService],

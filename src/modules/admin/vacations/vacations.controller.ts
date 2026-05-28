@@ -3,14 +3,14 @@ import { VacationsService } from './vacations.service';
 import { CreateVacationDto } from './dto/create-vacation.dto';
 import { UpdateVacationDto } from './dto/update-vacation.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger/dist';
-import { AuthGuard } from './../../auth/auth.guard';
-//import { JwtAuthGuard } from '../../../auth/jwt-auth.guard';
 
-//@UseGuards(JwtAuthGuard)
+// 🚫 BORRA la importación vieja de: import { AuthGuard } from './../../auth/auth.guard';
 
+// 🟢 1. IMPORTA TU GUARDIÁN UNIFICADO REAL DE LA CARPETA MODULES:
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard'; 
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard)   // Este decorador hace que se habiliten los guardias de las autorizaciones.
+@UseGuards(JwtAuthGuard) // 🚨 2. REPARADO: Activamos tu guardián de tokens real para proteger todo el controlador
 @Controller('vacations')
 export class VacationsController {
   constructor(private readonly vacationsService: VacationsService) {}
@@ -20,30 +20,17 @@ export class VacationsController {
     return this.vacationsService.create(createVacationDto);
   }
 
-
- // URL: GET http://localhost:5000/vacations/user?userId=VALOR
+  // URL: GET http://localhost:5000/vacations/user?userId=VALOR
   @Get('user')
   async getVacationsByUserId(@Query('userId') userId: string) {
     return await this.vacationsService.findAllByUserId(userId);
   }
-
-
 
 // Mantiene tu método global por si necesitas listar todo como admin
   @Get()
   findAll() {
     return this.vacationsService.findAll();
   }
-/*
-  @Get('mis-vacaciones') // O simplemente @Get() si es el único GET
-  @UseGuards(JwtAuthGuard) 
-  findAllByUser(@Req() req) {
-    console.log("Usuario decodificado del JWT:", req.user);
-    // req.user.userId debe existir en tu Payload del JWT
-    return this.vacationsService.findAllByUserId(req.user.userId); 
-}
-*/
-
 
   @Get(':userId')
   @ApiOperation({ 
@@ -53,15 +40,6 @@ export class VacationsController {
   findAllByUserId(@Param('userId') userId: string) {
   return this.vacationsService.findAllByUserId(userId); // 
   }
-
-
-
-
-
- /* @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVacationDto: UpdateVacationDto) {
-    return this.vacationsService.update(+id, updateVacationDto);
-  }*/
 
 
   @Delete('all')
@@ -82,13 +60,6 @@ export class VacationsController {
   remove(@Param('userId') userId: string) {
     return this.vacationsService.remove(userId);
   }
-
-/*  @Delete('all/danger')
-  @ApiOperation({summary: 'Borra TODOS los registros de la tabla Vacaciones, proceder con PRECAUCION'})
-  async removeAll(){
-    return await this.vacationsService.removeAll();
-  }
-*/
 
 
 }

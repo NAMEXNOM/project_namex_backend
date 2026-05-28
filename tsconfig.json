@@ -23,6 +23,9 @@
     "noFallthroughCasesInSwitch": false,
     
     "typeRoots": ["./node_modules/@types", "./src/types"],
+
+    "types": ["node"],
+
     "paths": {
       "*": ["node_modules/*", "src/types/*"]
     }
