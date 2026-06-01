@@ -4,10 +4,12 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth } from '@nestjs/swagger/dist';
 import { AuthGuard } from './../../auth/auth.guard';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 
 
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard) // 🚨 2. REPARADO: Activamos tu guardián de tokens real para proteger todo el controlador
 // @UseGuards(AuthGuard)   // Este decorador hace que se habiliten los guardias de las autorizaciones.
 @Controller('users')
 export class UsersController {
