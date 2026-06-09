@@ -14,6 +14,8 @@ import { Permission } from './modules/admin/permissions/entities/permission.enti
 import { Role } from './modules/admin/roles/entities/role.entity';
 import { VacationsModule } from './modules/admin/vacations/vacations.module';
 import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
+import { AttendancesModule } from './modules/admin/attendances/attendances.module';
+import { Attendance } from './modules/admin/attendances/entities/attendance.entity';
 
 // Elimiamos la linea vieja de require('dotenv')
 
@@ -38,6 +40,7 @@ import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
         Permission,
         Role,
         Vacation,
+        Attendance,
       ],
       synchronize: false,
       ssl: {
@@ -50,7 +53,8 @@ import { Vacation } from './modules/admin/vacations/entities/vacation.entity';
     AuthModule, // <-- Ahora este módulo recibirá correctamente las variables de IONOS
     PermissionsModule,
     RolesModule,
-    VacationsModule
+    VacationsModule,
+    AttendancesModule
   ],
   controllers: [AppController],
   providers: [AppService],

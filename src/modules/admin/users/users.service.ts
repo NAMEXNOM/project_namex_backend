@@ -74,6 +74,15 @@ export class UsersService {
     return user;
   }
 
+
+    // 🟢 NUEVO MÉTODO: Para buscar de forma exacta por el ID de la base de datos
+  async findById(userId: string) {
+    // Nota: Si tu columna en la entidad de TypeORM se llama 'userId', cambia { id } por { userId: id }
+    const user = await this.userRepository.findOneBy({ userId }); 
+    if (!user) throw new NotFoundException('El usuario no existe por ID');
+    return user;
+  }
+
   async findOneByRfc(userRFC: string) {
   return await this.userRepository.findOne({
     where: { userRFC },

@@ -23,8 +23,8 @@ export class AuthService {
 
     const user = await this.usersService.findOneByRfc(userRFC);
 
-    console.log("Contraseña de la DB:", user?.password);
-    console.log("Contraseña que digitaste:", password);
+    //console.log("Contraseña de la DB:", user?.password);
+    //console.log("Contraseña que digitaste:", password);
 
     // 🚨 2. COMPARACIÓN SEGURA CON BCRYPT REPARADA
     if (!user || !user.password) {
