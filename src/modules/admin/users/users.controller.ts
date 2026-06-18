@@ -8,7 +8,7 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 
 
-@ApiBearerAuth()
+@ApiBearerAuth() 
 @UseGuards(JwtAuthGuard) // 🚨 2. REPARADO: Activamos tu guardián de tokens real para proteger todo el controlador
 // @UseGuards(AuthGuard)   // Este decorador hace que se habiliten los guardias de las autorizaciones.
 @Controller('users')
