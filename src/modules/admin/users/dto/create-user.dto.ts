@@ -35,8 +35,8 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @IsString()
     @MinLength(1)
     @MaxLength(30)
-    @IsNotEmpty()
-    secondLastName!: string;
+    @IsOptional()
+    secondLastName?: string;
 
     @ApiProperty()
     @IsString()
@@ -93,6 +93,10 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @Type(() => Date)
     @IsDate()
     balanceDateTime?: Date;
+
+    @ApiProperty({default: 0})
+    @IsNumber()
+    start_day_of_payment!: number;
 
 
 }

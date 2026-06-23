@@ -33,7 +33,7 @@ export class DatabaseSeedService implements OnApplicationBootstrap {
     // 4. 🟢 REPARADO: Estructurar el objeto incluyendo todas las propiedades exigidas por tu DTO
     const usuarioInicial = {
         userRFC: adminRfc,
-        empNumber: 1, // Si te marca error, cámbialo a string: '1' o 'EMP-001'
+        empNumber: 'A1', // Si te marca error, cámbialo a string: '1' o 'EMP-001'
         name: 'Administrador',
         firstLastName: 'Sistema',
         secondLastName: 'Namex',
