@@ -22,8 +22,8 @@ export class Vacation {
     @Column({ type: "date" })
     fechaFinal!: Date;
 
-    @Column()
-    vacationDays!: string;
+    @Column({ type: 'numeric', precision: 5, scale: 2, default: 0.00 })
+    vacationDays!: number;
 
       // Relación con User
     @ManyToOne(() => User, (user) => user.vacations, { onDelete: 'CASCADE' })

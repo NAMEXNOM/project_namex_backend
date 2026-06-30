@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger/dist";
 
-import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateVacationDto {
     @ApiProperty()
@@ -30,8 +30,7 @@ export class CreateVacationDto {
     fechaFinal?: string;
 
     @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    vacationDays!: string;
+    @IsNumber({ maxDecimalPlaces: 2 })
+    vacationDays!: number;
 
 }
