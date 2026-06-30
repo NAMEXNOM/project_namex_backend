@@ -85,7 +85,7 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     empPriv!: string;
 
     @ApiProperty()
-    @IsNumber()
+    @IsNumber({ maxDecimalPlaces: 2 })
     vacationBalance!: number;
 
     @ApiProperty()

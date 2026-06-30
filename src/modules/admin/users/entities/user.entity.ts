@@ -50,7 +50,7 @@ export class User {
     @Column({default: "usuario"})
     empPriv: string;
 
-    @Column({default: 0})
+    @Column({ type: 'numeric', precision: 5, scale: 2, default: 0.00 })
     vacationBalance: number;
 
     @Column({nullable: true})
