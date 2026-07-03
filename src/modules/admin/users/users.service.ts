@@ -57,7 +57,11 @@ export class UsersService {
       shiftType: createUserDto.shiftType,
       jobRole: createUserDto.jobRole,
       firstTimeLoad: createUserDto.firstTimeLoad,
-      password: hashPassword
+      password: hashPassword,
+      empPriv: createUserDto.empPriv,
+      vacationBalance: createUserDto.vacationBalance,
+      balanceDateTime: createUserDto.balanceDateTime,
+      startDayOfPayment: createUserDto.start_day_of_payment
     })
 
     this.userRepository.save(newUser);
