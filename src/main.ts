@@ -7,7 +7,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // --- AGREGA ESTA LÍNEA AQUÍ ---
-  app.enableCors(); 
+  app.enableCors({
+    origin: true, // Permite que cualquier origen consulte la API (ideal para desarrollo/Swagger)
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  }); 
   // ------------------------------
 
   // class validator de nestjs.doc  2-Marzo-2026 RAP
@@ -28,7 +32,7 @@ async function bootstrap() {
   // DETECCIÓN AUTOMÁTICA DE ENTORNO (Se configura ANTES de hacer .build())
   if (process.env.NODE_ENV === 'production') {
     // Apunta al subdominio de tu API en producción
-    configBuilder.addServer('https://api.namexportal.com', 'Servidor de Producción');
+    configBuilder.addServer('https://fustes.namexportal.com/api', 'Servidor de Producción');
   } else {
     // Apunta al puerto 5000 que es donde escucha tu NestJS local
     configBuilder.addServer('http://localhost:5000', 'Servidor de Desarrollo Local');
