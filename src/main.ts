@@ -6,38 +6,40 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
- // --- AGREGA ESTA LÍNEA AQUÍ ---
+  // --- AGREGA ESTA LÍNEA AQUÍ ---
   app.enableCors(); 
   // ------------------------------
 
-
-// class validator de nestjs.doc  2-Marzo-2026 RAP
+  // class validator de nestjs.doc  2-Marzo-2026 RAP
   app.useGlobalPipes(new ValidationPipe({
      whitelist: true, //solo pasan los datos configurdos en DTO
      forbidNonWhitelisted: true // avisa cuales datos no deben de ir
   }));
-
-// Fin de class validator nestjs.doc 2-Marzo-2026 RAP
+  // Fin de class validator nestjs.doc 2-Marzo-2026 RAP
   
-// Swagger  se copi de nesjs.doc  openapi  02-28-26  AHR SWAGGER
- const config = new DocumentBuilder()
+  // Swagger se copia de nesjs.doc openapi 02-28-26 AHR SWAGGER
+  const configBuilder = new DocumentBuilder()
     .addBearerAuth()    // se agrega para dar seguridad con token 03/31/2026 RAP
     .setTitle('backend api')
     .setDescription('Backend api portal')
     .setVersion('1.0')
-    .addTag('node')
-    .build();
+    .addTag('node');
+
+  // DETECCIÓN AUTOMÁTICA DE ENTORNO (Se configura ANTES de hacer .build())
+  if (process.env.NODE_ENV === 'production') {
+    // Apunta al subdominio de tu API en producción
+    configBuilder.addServer('https://api.namexportal.com', 'Servidor de Producción');
+  } else {
+    // Apunta al puerto 5000 que es donde escucha tu NestJS local
+    configBuilder.addServer('http://localhost:5000', 'Servidor de Desarrollo Local');
+  }
+
+  // Ahora sí, construimos la configuración finalizada
+  const config = configBuilder.build();
+
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);
-
-
-  // FIN DE Swagger.  02-28-26
-  // FIN DE Swagger 02-28-26
-  
-   // class validator 03-02-26
- // app.useGlobalPipes(new ValidationPipe());
-
-   // fin class validaor 03-02-26
+  // FIN DE Swagger. 02-28-26
 
   await app.listen(process.env.PORT ?? 5000);
 }
