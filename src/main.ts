@@ -36,7 +36,7 @@ async function bootstrap() {
     configBuilder.addServer('https://fustes.namexportal.com/api', 'Servidor de Producción');
   } else {
     // Apunta al puerto 5000 que es donde escucha tu NestJS local
-    configBuilder.addServer('http://localhost:5000', 'Servidor de Desarrollo Local');
+    configBuilder.addServer('https://fustes.namexportal.com/api', 'Servidor de Producción FORZADO');
   }
 
   // Ahora sí, construimos la configuración finalizada
