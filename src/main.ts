@@ -11,6 +11,7 @@ async function bootstrap() {
     origin: true, // Permite que cualquier origen consulte la API (ideal para desarrollo/Swagger)
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization, X-Requested-With',
   }); 
   // ------------------------------
 
