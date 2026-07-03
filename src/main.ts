@@ -31,13 +31,17 @@ async function bootstrap() {
     .addTag('node');
 
   // DETECCIÓN AUTOMÁTICA DE ENTORNO (Se configura ANTES de hacer .build())
-  if (process.env.NODE_ENV === 'production') {
+
+  configBuilder.addServer(process.env.SWAGGER_SERVER_URL || 'http://localhost:5000', 'Servidor de la API');
+
+/*  if (process.env.NODE_ENV === 'production') {
     // Apunta al subdominio de tu API en producción
     configBuilder.addServer('https://fustes.namexportal.com/api', 'Servidor de Producción');
   } else {
     // Apunta al puerto 5000 que es donde escucha tu NestJS local
     configBuilder.addServer('https://fustes.namexportal.com/api', 'Servidor de Producción FORZADO');
   }
+    */
 
   // Ahora sí, construimos la configuración finalizada
   const config = configBuilder.build();
