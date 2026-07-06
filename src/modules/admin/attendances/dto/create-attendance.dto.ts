@@ -23,10 +23,10 @@ export class CreateAttendanceDto {
   @IsOptional()
   shift?: number;
 
-  @ApiProperty({ description: 'ID de incidencia asociada si aplica', required: false })
-  @IsNumber()
+  @ApiProperty({ description: 'Incidencia asociada si aplica', required: false, example: 'INC-102' })
+  @IsString({ message: 'El incidentId debe ser una cadena de texto.' }) 
   @IsOptional()
-  incidentId?: number;
+  incidentId?: string;
 
   @ApiProperty({ description: 'Hora de primera entrada (HH:MM:SS)', example: '08:00:00', required: false })
   @IsString()
@@ -52,5 +52,10 @@ export class CreateAttendanceDto {
   @IsNumber()
   @IsOptional()
   dailyHours?: number;
+
+  @ApiProperty({ description: 'Total de horas extra (NUMERIC 5,2)', example: 2.5, required: false }) 
+  @IsNumber()
+  @IsOptional()
+  dailyHoursOVT?: number;
 }
 

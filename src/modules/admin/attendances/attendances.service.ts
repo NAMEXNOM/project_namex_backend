@@ -71,7 +71,7 @@ export class AttendancesService {
     };
   }
 
-
+/*
     async createAttendanceCompleto(dto: CreateAttendanceDto): Promise<{ status: number; message: string; data: Attendance }> {
     // 1. Validar que el usuario exista
     const user = await this.usersService.findById(dto.userId);
@@ -105,13 +105,12 @@ export class AttendancesService {
       data
     };
   }
-
-
-
+*/
 
   /**
    * Helper exclusivo de TypeScript para determinar la siguiente columna vacía
    */
+/*
   private obtenerSiguienteColumnaChecada(asistencia: Attendance): keyof Attendance | null {
     const camposChecadas: (keyof Attendance)[] = [
       'check_in_1' as keyof Attendance,
@@ -132,7 +131,7 @@ export class AttendancesService {
 
 
 
-
+*/
 
   async deleteAttendance(id: string): Promise<{ status: number; message: string }> {
     // 1. Validar que el string recibido sea un formato UUID válido para Postgres
@@ -158,4 +157,55 @@ export class AttendancesService {
 
 
 
+// Reemplaza o actualiza estos métodos dentro de tu AttendancesService:
+
+async createAttendanceCompleto(dto: CreateAttendanceDto): Promise<{ status: number; message: string; data: Attendance }> {
+  const user = await this.usersService.findById(dto.userId);
+  if (!user) {
+    throw new NotFoundException(`El usuario con ID ${dto.userId} no existe.`);
+  }
+
+  // Mapeo seguro: Transforma la entrada mixta a la estructura limpia de la Entidad
+  const nuevosDatosAsistencia: Partial<Attendance> = {
+    userId: dto.userId, 
+    recDate: dto.recDate,
+    recType: dto.recType ?? 'Regular', 
+    shift: dto.shift ?? 1,
+    incidentId: dto.incidentId ?? null,      // Asignación de String directo
+    dailyHours: dto.dailyHours ?? 0.00,  
+    dailyHoursOVT: dto.dailyHoursOVT ?? 0.00, // Asignación del nuevo campo numérico
+    
+    // Traductor de formatos de entrada (snake_case -> camelCase)
+    checkIn1: dto.check_in_1 ?? null,
+    checkOut1: dto.check_out_1 ?? null,
+    checkIn2: dto.check_in_2 ?? null,
+    checkOut2: dto.check_out_2 ?? null,
+  };
+
+  const nuevaAsistencia = this.attendanceRepository.create(nuevosDatosAsistencia);
+  const data = await this.attendanceRepository.save(nuevaAsistencia);
+
+  return {
+    status: 201,
+    message: 'Registro de asistencia insertado de forma externa con éxito.',
+    data
+  };
+}
+
+private obtenerSiguienteColumnaChecada(asistencia: Attendance): keyof Attendance | null {
+  // Evaluamos usando estrictamente las propiedades reales de la Entidad en TypeScript
+  const camposChecadas: (keyof Attendance)[] = [
+    'checkIn1',
+    'checkOut1',
+    'checkIn2',
+    'checkOut2'
+  ];
+
+  for (const campo of camposChecadas) {
+    if (!asistencia[campo]) {
+      return campo;
+    }
+  }
+  return null;
+}
 }
