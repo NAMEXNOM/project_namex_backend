@@ -9,13 +9,10 @@ import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>
   ){
-
-
   }
 
   async create(createUserDto: CreateUserDto) {
@@ -119,15 +116,18 @@ async setTemporaryPassword(userId: string, tempPasswordPlain: string) {
 }
 
 // Método complementario para cuando el usuario asigne su contraseña definitiva
-async updateToFinalPassword(userId: string, passwordNueva: string) {
-  const hashPassword = await bcrypt.hash(passwordNueva, 12);
+async updateToFinalPassword(userId: number, passwordPlano: string): Promise<void> {
+  const salt = await bcrypt.genSalt(10);
+  const passwordHash = await bcrypt.hash(passwordPlano, salt);
 
-  return await this.userRepository.update(userId, {
-    password: hashPassword,
-    firstTimeLoad: false,      // Ya no es su primera vez
-    status: 'ACTIVO'           // El usuario queda completamente activo
+  // Actualización estricta de las banderas de control de acceso
+  await this.userRepository.update(userId, {
+    password: passwordHash,
+    firstTimeLoad: false,   // Ya no es primer ingreso
+    status: 'ACTIVO'        // Cuenta activada definitivamente
   });
 }
+
 // =========================================================================
 
 
