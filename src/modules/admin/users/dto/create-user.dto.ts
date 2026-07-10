@@ -98,5 +98,9 @@ export class CreateUserDto {  //que es lo que queremos guardar, es lo que debemo
     @IsNumber()
     start_day_of_payment!: number;
 
+    @ApiProperty()
+    @IsNumber({ maxDecimalPlaces: 2 })
+    vacationsTaken!: number;
+
 
 }

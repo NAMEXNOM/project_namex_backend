@@ -48,6 +48,7 @@ export class AuthService {
       userName: nombreCompleto,
       role: nombreRol,
       userBalance: user.vacationBalance || 0,
+      vacationsTaken: user.vacationsTaken || 0,
       firstTimeLoad: user.firstTimeLoad, 
       status: user.status,
       access_token: await this.jwtService.signAsync(payload)  

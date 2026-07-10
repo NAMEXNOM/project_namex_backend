@@ -61,6 +61,17 @@ export class User {
     // En TypeScript se usará 'startDayOfPayment', pero en SQL buscará 'start_day_of_payment' 
     // 1 = Lunes, 2 = Martes, 3 = Miércoles, 4 = Jueves, 5 = Viernes, 6 = Sábado, 7 = Domingo
 
+    @Column({
+        type: 'decimal',
+        precision: 5,
+        scale: 2,
+        default: 0.00,
+        name: 'vacations_taken' // Opcional: buen formato para la BD
+    })
+    vacationsTaken: number;
+
+
+
     @ManyToMany(() => Role, {eager: true})
     @JoinTable({
         name: 'users_roles',

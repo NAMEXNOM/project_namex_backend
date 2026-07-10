@@ -45,12 +45,17 @@ export class VacationsService {
 
 
   findOne(id: number) {
+  //  console.log('Primero');
     return `This action returns a #${id} vacation`;
   }
 
   async findAllByUser(userId: string) {
+  //  console.log('Segundo');
   return await this.vacationRepository.find({
-    where: { userId: userId } // Filtro indispensable
+    where: { userId: userId }, // Filtro indispensable
+    order: {
+      fechaInicio: 'DESC',
+    },
   });
 }
 
@@ -58,6 +63,7 @@ export class VacationsService {
   
   // Buscar todas las vacaciones de un usuario específico
   async findAllByUserId(userId: string): Promise<Vacation[]> {
+  //  console.log('Tercero');
     return await this.vacationRepository.find({
       where: {
         userId: userId // Filtra por la columna userId
